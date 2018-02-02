@@ -1,9 +1,8 @@
 # AngularJS-quick-intro-with-codes
 This repo has cheatcodes for AngularJS 1.x and basics to cover :)
 
-------------------------
-//// Best Practices ////
-------------------------
+Best Practices 
+--------------
 
 1. MV* seperataion
 2. DRY
@@ -20,15 +19,13 @@ This repo has cheatcodes for AngularJS 1.x and basics to cover :)
 
 
 Directory structure:
--------------------
+-------------
 |->index.html
 |->app.js
--------------------
+------------
 
-
----------------------
-//// Controllers ////
----------------------
+Controllers
+-----------
 
 var app = angular.module('myApp', []);
 
@@ -50,11 +47,11 @@ app.controller('Controller1', function(){
     <h3 ng-show="con1.showme"></h3>
 </div>
 
-------------------------------------------
-//// Sharing data between controllers ////
-------------------------------------------
-Usage: in index.html
-------
+
+Sharing data between controllers
+--------------------------------
+Usage in index.html:
+
 <div ng-controller="controller1 as con1">
     {{con1.name}}
 </div>
@@ -64,7 +61,6 @@ Usage: in index.html
 </div>
 
 Usage: in app.js
-------
 
 var app = angular.module('myApp', []);
 
@@ -82,9 +78,8 @@ app.controller('controller2',function(sharedservice){
     this.name = sharedservice.name; //"Controller 2";    
 });
 
----------------------
-//// Directives ////
---------------------
+Directives
+----------
 ng-app
 ng-controller
 ng-model
@@ -98,13 +93,11 @@ ng-repeat
 ng-class
 ng-template
 
--------------------------------------------
 ng-show --> Dont use function in expression
 ng-hide --> Dont use function in expression
--------------------------------------------
 
-Usage: in app.js
-------
+Usage in app.js:
+
 app.controller('MainController', function($scope) {
   $scope.val = 1
   $scope.even = false
@@ -117,8 +110,7 @@ app.controller('MainController', function($scope) {
 })
 
 
-Usage: in index.html
-------
+Usage in index.html:
 <head>
     <style type="text/css">
       .orange {
@@ -144,7 +136,6 @@ Usage: in index.html
 
     <h1 ng-class="{orange: false, italic:true}">Toggle Hello there! 5</h1>
 
-
     <div ng-include="'test.html'">
     </div>
 <div>
@@ -153,10 +144,8 @@ Usage: in index.html
   <h1>My template</h1>
 </script>
 
-
----------------------------
-//// Custom Directives ////
----------------------------
+Custom Directives
+-----------------
 
 var app = angular.module('myApp', []);
 
@@ -175,16 +164,13 @@ app.directive("bodyPage", function(){
     };
 });
 
-Usage: in index.html
-------
-<header-Page></header-Page>
+Usage in index.html:
 
+<header-Page></header-Page>
 <h4 body-Page></h4>
 
-
--------------------------------------------
-//// Custom Directives with Controller ////
--------------------------------------------
+Custom Directives with Controller 
+---------------------------------
 
 var app = angular.module('myApp', []);
 
@@ -204,13 +190,10 @@ app.directive("headerPage", function(){
     };
 });
 
-Usage: in index.html
-------
+Usage in index.html:
 <header-Page></header-Page>
 
 Usage: in header.html
-------
-
 <table class="table">
   <thead>
     <tr>
@@ -226,24 +209,20 @@ Usage: in header.html
   </tbody>
 </table>
 
---------------------
-//// Dependency ////
---------------------
+Dependency
+----------
 
-Usage: in app.js
-------
+Usage in app.js:
 angular.module('myApp', ["products"]);
 // products is dependency
 // myApp will look for products declaration
 
 
-Usage: in products.js
-------
+Usage in products.js:
 // sub-application: will be linked from app.js
 var app = angular.module('products', []);
 
 app.controller('MyController', ["$scope", function($scope){
-
     $scope.objectArray = [
         {
             name:"Yogesh Asthana",
@@ -252,8 +231,7 @@ app.controller('MyController', ["$scope", function($scope){
     ];
 }]);
 
-Usage: in index.html
-------
+Usage in index.html:
 <body style="margin:100px;" ng-controller="MyController"> 
     <div ng-repeat="item in con1.objectArray">
       <p>{{item.name}}</p>
@@ -261,22 +239,16 @@ Usage: in index.html
     </div>
 </body>
 
-
------------------------------------
-//// Isolate scope : @ one way ////
------------------------------------
+Isolate scope : @ one way
+-------------------------
 
 From parent model to sub model
 i.e from controller to directive
 
-
 --------- Example 1 ---------
 
-Usage: in app.js
-------
-
+Usage in app.js:
 var app = angular.module('myApp', []);
-
 app.controller('Controller', function($scope){
     $scope.phonemodel = "samsung";    
 });
@@ -290,22 +262,16 @@ app.directive("phone", function(){
     };
 });
 
-Usage: in index.html
-------
-
+Usage in index.html:
 <div ng-controller="Controller">
     <phone model="phonemodel"></phone>
 </div>
 
-
 ---------- Example 2 ------------
 
-
-Usage: in app.js
-------
+Usage in app.js:
 
 var app = angular.module('myApp', []);
-
 app.controller('Controller', function($scope){
     $scope.phonemodel = "samsung";
     
@@ -320,25 +286,19 @@ app.directive("phone", function(){
     };
 });
 
-Usage: in index.html
-------
+Usage in index.html:
 
 <div ng-controller="Controller">      
       Controller Output: <input type='text' ng-model='phonemodel'><br>
       Directive Output: <phone model="{{phonemodel}}"></phone>
 </div>
 
+Isolate scope : = two way
+-------------------------
 
-
------------------------------------
-//// Isolate scope : = two way ////
------------------------------------
-
-Usage: in app.js
-------
+Usage in app.js:
 
 var app = angular.module('myApp', []);
-
 app.controller('Controller', function($scope){
     $scope.phonemodel = "samsung";    
 });
@@ -352,33 +312,24 @@ app.directive("phone", function(){
     };
 });
 
-Usage: in index.html
-------
+Usage in index.html:
 
-<div ng-controller="Controller">
-      
+<div ng-controller="Controller">      
       Controller Output: <input type='text' ng-model='phonemodel'><br>
-
       Directive Output: <phone model="phonemodel"></phone>
-
 </div>
 
+Isolate scope : '&' function binding'
+-------------------------------------
 
------------------------------------------------
-//// Isolate scope : '&' function binding' ////
------------------------------------------------
+Usage in app.js:
 
-Usage: in app.js
-------
 var app = angular.module('myApp', []);
-
 app.controller('Controller', function($scope){
     $scope.phonemodel = "samsung";
-
     $scope.phonedial = function(number){
         alert(number);
-    }
-    
+    }    
 });
 
 app.directive("phone", function(){
@@ -391,26 +342,16 @@ app.directive("phone", function(){
     };
 });
 
-Usage: in index.html
-------
+Usage in index.html:
 
-<div ng-controller="Controller">
-      
+<div ng-controller="Controller">      
      <phone dial="phonedial(phonenumber);"></phone>
-
 </div>
 
-
-
-
-----------------
-//// $http ////
----------------
-
+$http
+-----
 var app = angular.module('myApp', []);
-
-app.controller('Controller',['$scope', '$http', function($scope, $http){
-    
+app.controller('Controller',['$scope', '$http', function($scope, $http){    
     $http.get("js/iphone.json").success(function(result){
         $scope.objectArray = result;
     }).error(function(error, status){
@@ -420,20 +361,17 @@ app.controller('Controller',['$scope', '$http', function($scope, $http){
 }]);
 
 
--------------------------------------------
-//// Routing - ngRoute, $routeProvider ////
--------------------------------------------
+Routing - ngRoute, $routeProvider
+---------------------------------
 
-Usage: in index.html
-------
+Usage in index.html:
 
-<div ng-view></div>     no controller needed
+<div ng-view></div>  //no controller needed
 
 
-Usage: in app.js
-------
-var app = angular.module('myApp', ['ngRoute']);   ngRoute is dependency
+Usage in app.js:
 
+var app = angular.module('myApp', ['ngRoute']);   //ngRoute is dependency
 app.config(function($routeProvider){
     $routeProvider
     .when("/header", {
@@ -460,29 +398,24 @@ app.config(function($routeProvider){
     });
 });
 
---------------------------------
-//// Routing - with Params  ////
---------------------------------
 
-Usage: in app.js
-------
+Routing - with Params
+---------------------
+
+Usage in app.js:
 
 var app = angular.module('myApp', ['ngRoute']);
-
-app.controller('OutsideController',['$scope', '$http', function($scope, $http){
-    
+app.controller('OutsideController',['$scope', '$http', function($scope, $http){    
     $http.get("js/iphone.json").success(function(result){
         $scope.objectArray = result;
     }).error(function(error, status){
         alert(error);
         alert(status);
-    });
-    
+    });    
 }]);
 
 app.controller('detailsController', ["$scope", "$http", "$routeParams", "$filter", function($scope, $http, $routeParams, $filter){
     //alert($routeParams.id);
-
     $http.get("js/iphone.json").success(function(data){
         $scope.peoples = $filter("filterById")(data, $routeParams.id);
     }).error(function(error, status){
@@ -533,50 +466,39 @@ app.filter("filterById", function(){
     }
 });
 
+Web Storage - ngStorage
+-----------------------
 
-----------------------------------
-//// Web Storage - ngStorage  ////
-----------------------------------
-
-Usage: in app.js
-------
+Usage in app.js:
 
 var app = angular.module("myApp", ['ngStorage']);
 app.controller('MainController', ['$scope', '$localStorage', '$sessionStorage', 
-                function($scope, $localStorage, $sessionStorage) {
-    
+                function($scope, $localStorage, $sessionStorage) {    
     // local storage
     $scope.$local_storage = $localStorage.$default({
                           x: 42,
                           y: 2
-                        }); 
-    
+                        });     
     $scope.delete_local_X = function() {
           delete $scope.$local_storage.x;
-        };
-        
+        };        
     $scope.delete_local_Y = function() {
           delete $localStorage.y;
         };
-
-
     // session storage
     $scope.$session_storage = $sessionStorage.$default({
                           x: 42,
                           y: 2
-                        }); 
-    
+                        });     
     $scope.delete_session_X = function() {
           delete $scope.$session_storage.x;
-        };
-        
+        };        
     $scope.delete_session_Y = function() {
           delete $sessionStorage.y;
         };
 }]);
 
 Usage: in index.html
-------
 
 <div ng-controller="MainController" style="margin:50px;">
   <button ng-click="$local_storage.x = $local_storage.x + 1">
@@ -596,15 +518,12 @@ Usage: in index.html
 
 </div>
 
---------------
 $scope.$watch
 --------------
 
 var app = angular.module('app', []);
-
 app.controller('MainController', function($scope) {
   $scope.mydata = {val: "jake"}
-
   //$scope.$watch('mydata.val',function(newval, oldVal)
 
   $scope.$watch('mydata.val',function(newval) {
@@ -612,12 +531,10 @@ app.controller('MainController', function($scope) {
   })
 })
 
-
-// Constants and Variables //
-------------------------------
+Constants and Variables
+-----------------------
 
 var app = angular.module('app', []);
-
 app.controller('MainController', function($scope,twitterAPI,valService, constService) {
   console.log(constService,valService())
   twitterAPI.url = "newurl"
@@ -631,12 +548,10 @@ app.value('valService', function() {
     return "this is returned from a fn"
 })
 
-
-// Factories //
----------------
+Factories
+---------
 
 var app = angular.module('app', []);
-
 app.controller('MainController', function($scope,myFactory,Auth) {
   console.log(myFactory.getdata())
   console.log(myFactory.mydata)
@@ -661,12 +576,10 @@ app.factory('Auth',function() {
   }
 })
 
-
-// Services //
---------------
+Services
+--------
 
 var app = angular.module('app', []);
-
 app.controller('MainController', function($scope,myFactory,myService) {
   // console.log(myFactory.getData())
   // myFactory.addData('bla bla bla')
@@ -720,18 +633,16 @@ function ServiceClass() {
 }
 
 
-// Providers: A provider is an object with a $get() method. 
+Providers: A provider is an object with a $get() method. 
 The injector calls the $get method to 
 create a new instance of a service. 
 The Provider can have additional methods 
 which would allow for configuration of the 
-provider. //
+provider.
 
-// They are like factories which can be modified in config
----------------
+They are like factories which can be modified in config
 
 var app = angular.module('app', []);
-
 app.controller('MainController', function($scope,myFactory,myTest) {
   console.log(myFactory.getData())
   myFactory.addData('bla bla bla')
@@ -786,9 +697,9 @@ String contains: some different string
 String contains: some different stringbla bla bla
 
 
-// Decorators: to modify the existing services //
-var app = angular.module('app', []);
+Decorators: to modify the existing services
 
+var app = angular.module('app', []);
 app.controller('MainController', function($scope,myFactory) {
   console.log(myFactory.getData())
   myFactory.reverse()
@@ -816,10 +727,8 @@ app.config(function($provide) {
   })
 })
 
-
-
-// Dependency Injection //
---------------------------
+Dependency Injection
+--------------------
 
 var app = angular.module('app', []);
 
@@ -843,12 +752,9 @@ app.factory('AppendService',function() {
 
 log: this is service data and this too!
 
-
-// Routing
-----------
-1.
-
-var app = angular.module('app', ['ngRoute']);
+Routing
+-------
+1. var app = angular.module('app', ['ngRoute']);
 
 app.controller('MainController', function($scope) {
   $scope.somedata = "This is some data!"
@@ -863,8 +769,7 @@ app.config(function($routeProvider) {
         })
 }) 
 
-2.
-var app = angular.module('app', ['ngRoute']);
+2. var app = angular.module('app', ['ngRoute']);
 
 app.controller('MainController', function($scope,$routeParams) {
   $scope.somedata = $routeParams.myparam
@@ -886,12 +791,10 @@ app.config(function($routeProvider) {
     .otherwise({template: 'Couldn\'t match a route'})
 })
 
-
-// Promises: to modify the values based on some condition
-------------
+Promises: to modify the values based on some condition
+------------------------------------------------------
 
 var app = angular.module('app', []);
-
 app.controller('MainController', 
     function($scope, $q, $timeout) {
 
@@ -917,12 +820,3 @@ app.controller('MainController',
     defer.resolve("More Cowbell ");
   },3000)
 });
-
-
-
-
-
-
-
-
-
