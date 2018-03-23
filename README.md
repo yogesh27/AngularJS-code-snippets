@@ -1,8 +1,7 @@
 # AngularJS-quick-intro-with-codes
 This repo has cheatcodes for AngularJS 1.x and basics to cover :)
 
-Best Practices 
---------------
+## Best Practices
 
 1. MV* seperataion
 2. DRY
@@ -18,15 +17,14 @@ Best Practices
 12. Read the source code
 
 
-Directory structure:
--------------
-|->index.html
-|->app.js
-------------
+###### Directory structure:
+
+index.html
+app.js
 
 Controllers
------------
 
+---
 var app = angular.module('myApp', []);
 
 app.controller('Controller1', function(){
@@ -46,6 +44,7 @@ app.controller('Controller1', function(){
 <div ng-controller="Controller1 as con1">
     <h3 ng-show="con1.showme"></h3>
 </div>
+---
 
 
 Sharing data between controllers
